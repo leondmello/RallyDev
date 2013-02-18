@@ -1,22 +1,27 @@
 ﻿function InitializeGrid(objectsData, gridID, pagerID, gridTitle) {
-    $(gridID).jqGrid({
-        data: objectsData,
-        height: "auto",
-        datatype: 'local',
-        colNames: [(gridID === "#tblWrkStateGrid") ? 'Work object State' : 'Work object ID', 'Hours', 'Mins', 'Secs'],
-        colModel: [
-            { name: 'WorkID', index: 'WorkID', key: true, sorttype: (gridID === "#tblWrkStateGrid") ? "string" : "int", align: "center", resizable: false },
-            { name: 'Hours', index: 'Hours', sorttype: "int", align: "right", resizable: false },
-            { name: 'Mins', index: 'Mins', sortable: false, align: "right", resizable: false },
-            { name: 'Secs', index: 'Secs', sortable: false, align: "right", resizable: false },
-        ],
-        rowNum: 10,
-        pager: pagerID,
-        sortname: 'WorkID',
-        viewrecords: true,
-        sortorder: 'asc',
-        caption: gridTitle
-    });
+    try{
+        $(gridID).jqGrid({
+            data: objectsData,
+            height: "auto",
+            datatype: 'local',
+            colNames: [(gridID === "#tblWrkStateGrid") ? 'Work object State' : 'Work object ID', 'Hours', 'Mins', 'Secs'],
+            colModel: [
+                { name: 'WorkID', index: 'WorkID', key: true, sorttype: (gridID === "#tblWrkStateGrid") ? "string" : "int", align: "center", resizable: false },
+                { name: 'Hours', index: 'Hours', sorttype: "int", align: "right", resizable: false },
+                { name: 'Mins', index: 'Mins', sortable: false, align: "right", resizable: false },
+                { name: 'Secs', index: 'Secs', sortable: false, align: "right", resizable: false },
+            ],
+            rowNum: 10,
+            pager: pagerID,
+            sortname: 'WorkID',
+            viewrecords: true,
+            sortorder: 'asc',
+            caption: gridTitle
+        });
+    }
+    catch (exxception) {
+        alert('Yo');
+    }
 }
 
 //Converts the milliseconds stored for a date value into a proper time format
@@ -203,31 +208,10 @@ function SetFebMonthData(jsonData, dataCase, gridID, pagerID, gridTitle) {
     InitializeGrid(dataArray, gridID, pagerID, gridTitle);
 }
 
-function RenderGrids(jsonData) {
-    SetFebMonthData(jsonData, 0, "#tblAllHrsGrid", "#divAllHrsPager", 'Time spent on work items irrespective of working hours');
-    SetFebMonthData(jsonData, 1, "#tblWrkHrsGrid", "#divWrkHrsPager", 'Time spent on work items considering only working hours');
-    SetFebMonthData(jsonData, 1, "#tblWrkStateGrid", "#divWrkStatePager", 'Time spent on work states considering only working hours');
+function RenderGrids() {
+    SetFebMonthData(workArray, 0, "#tblAllHrsGrid", "#divAllHrsPager", 'Time spent on work items irrespective of working hours');
+    SetFebMonthData(workArray, 1, "#tblWrkHrsGrid", "#divWrkHrsPager", 'Time spent on work items considering only working hours');
+    SetFebMonthData(workArray, 1, "#tblWrkStateGrid", "#divWrkStatePager", 'Time spent on work states considering only working hours');
 }
 
-function GetJSONData() {
-    var ajaxObject;
-
-    if (window.XMLHttpRequest) {
-        ajaxObject = new XMLHttpRequest();
-    }
-    else {
-        ajaxObject = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-    ajaxObject.onreadystatechange = function () {
-        if (ajaxObject.readyState == 4 && ajaxObject.status == 200) {
-            var jsonData = eval(ajaxObject.responseText);
-            RenderGrids(jsonData);
-        }
-    }
-
-    ajaxObject.open("GET", "data.json", true);
-    ajaxObject.send();
-}
-
-GetJSONData();
+RenderGrids();

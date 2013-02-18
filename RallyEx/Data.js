@@ -1,4 +1,4 @@
-[
+var workArray = [
     {
         "_ValidFrom": "2012-01-20T00:08:26.943Z",
         "_ValidTo": "2012-01-21T01:32:47.208Z",
@@ -5999,4 +5999,4 @@
         "ObjectID": 5225421330,
         "ScheduleState": "In-Progress"
     }
-]
+];

@@ -1,27 +1,22 @@
 ﻿function InitializeGrid(objectsData, gridID, pagerID, gridTitle) {
-    try{
-        $(gridID).jqGrid({
-            data: objectsData,
-            height: "auto",
-            datatype: 'local',
-            colNames: [(gridID === "#tblWrkStateGrid") ? 'Work object State' : 'Work object ID', 'Hours', 'Mins', 'Secs'],
-            colModel: [
-                { name: 'WorkID', index: 'WorkID', key: true, sorttype: (gridID === "#tblWrkStateGrid") ? "string" : "int", align: "center", resizable: false },
-                { name: 'Hours', index: 'Hours', sorttype: "int", align: "right", resizable: false },
-                { name: 'Mins', index: 'Mins', sortable: false, align: "right", resizable: false },
-                { name: 'Secs', index: 'Secs', sortable: false, align: "right", resizable: false },
-            ],
-            rowNum: 10,
-            pager: pagerID,
-            sortname: 'WorkID',
-            viewrecords: true,
-            sortorder: 'asc',
-            caption: gridTitle
-        });
-    }
-    catch (exxception) {
-        alert('Yo');
-    }
+    $(gridID).jqGrid({
+        data: objectsData,
+        height: "auto",
+        datatype: 'local',
+        colNames: [(gridID === "#tblWrkStateGrid") ? 'Work object State' : 'Work object ID', 'Hours', 'Mins', 'Secs'],
+        colModel: [
+            { name: 'WorkID', index: 'WorkID', key: true, sorttype: (gridID === "#tblWrkStateGrid") ? "string" : "int", align: "center", resizable: false },
+            { name: 'Hours', index: 'Hours', sorttype: "int", align: "right", resizable: false },
+            { name: 'Mins', index: 'Mins', sortable: false, align: "right", resizable: false },
+            { name: 'Secs', index: 'Secs', sortable: false, align: "right", resizable: false },
+        ],
+        rowNum: 10,
+        pager: pagerID,
+        sortname: 'WorkID',
+        viewrecords: true,
+        sortorder: 'asc',
+        caption: gridTitle
+    });
 }
 
 //Converts the milliseconds stored for a date value into a proper time format
@@ -89,7 +84,7 @@ function SetFebMonthData(jsonData, dataCase, gridID, pagerID, gridTitle) {
                     }
                     break;
 
-                //Consider only working hours and days
+                    //Consider only working hours and days
                 case 1:
                     //Check if the time stamps duration is including some part of february
                     if (!(endDate < febStartDate) && !(startDate > febEndDate)) {
